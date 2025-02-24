@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"');
-
 @import 'tailwindcss';
 
 @custom-variant dark (&:where(.dark, .dark *));
@@ -24,7 +22,7 @@
   }
 
   .hero-reflection {
-    @apply absolute inset-0 left-20 top-10 rounded-2xl bg-gradient-to-bl from-indigo-200 to-pink-200 dark:from-gray-700 dark:to-gray-500;
+    @apply absolute inset-0 top-10 left-20 rounded-2xl bg-gradient-to-bl from-indigo-200 to-pink-200 dark:from-gray-700 dark:to-gray-500;
     transform: scale(1.1) rotateX(5deg) rotateY(-10deg) rotateZ(2deg);
   }
 }

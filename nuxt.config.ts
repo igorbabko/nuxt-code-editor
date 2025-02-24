@@ -4,6 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
+  modules: ['@nuxtjs/google-fonts'],
   css: ['~/assets/css/main.css'],
   vite: {
     plugins: [tailwindcss()],
@@ -11,6 +12,15 @@ export default defineNuxtConfig({
   app: {
     head: {
       title: 'Code Editor',
+    },
+  },
+  googleFonts: {
+    display: 'swap',
+    families: {
+      'Open Sans': {
+        wght: '300..800',
+        ital: '300..800',
+      },
     },
   },
 })
