@@ -5,30 +5,13 @@
       class="peer absolute inset-x-0 top-full hidden border-b border-gray-200 bg-white target:block dark:border-0 dark:bg-gray-900"
     >
       <ul class="flex flex-col items-center gap-y-2 px-3 pb-3">
-        <li class="w-full">
-          <a
-            href="#"
-            class="inline-block w-full rounded-md p-2 text-center text-sm font-semibold hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700"
-          >
-            Library
-          </a>
-        </li>
-        <li class="w-full">
-          <a
-            href="#"
-            class="inline-block w-full rounded-md p-2 text-center text-sm font-semibold hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700"
-          >
-            Log In
-          </a>
-        </li>
-        <li class="w-full">
-          <a
-            href="#"
-            class="inline-block w-full rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-indigo-50 hover:bg-indigo-700"
-          >
-            Sign Up
-          </a>
-        </li>
+        <AppHeaderMobileNavItem>Library</AppHeaderMobileNavItem>
+        <AppHeaderMobileNavItem>Log In</AppHeaderMobileNavItem>
+        <AppHeaderMobileNavItem
+          link-classes="inline-block w-full rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-indigo-50 hover:bg-indigo-700"
+        >
+          Sign Up
+        </AppHeaderMobileNavItem>
       </ul>
     </nav>
     <a
