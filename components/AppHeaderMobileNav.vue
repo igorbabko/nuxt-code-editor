@@ -14,17 +14,11 @@
         </AppHeaderMobileNavItem>
       </ul>
     </nav>
-    <a
+    <AppHeaderMobileNavButton
       href="#nav"
-      class="-mr-1.5 rounded-md p-2 peer-target:hidden hover:bg-gray-100 dark:hover:bg-gray-700 peer-target:[&+a]:block"
-    >
-      <Icon name="bars" class="size-6 dark:text-white" />
-    </a>
-    <a
-      href="#"
-      class="-mr-1.5 hidden rounded-md p-2 hover:bg-gray-100 dark:hover:bg-gray-700"
-    >
-      <Icon name="xMark" class="size-6 dark:text-white" />
-    </a>
+      icon="bars"
+      class="peer-target:hidden peer-target:[&+a]:block"
+    />
+    <AppHeaderMobileNavButton icon="xMark" class="hidden" />
   </div>
 </template>
