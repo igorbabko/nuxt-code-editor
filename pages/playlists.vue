@@ -8,7 +8,7 @@
       class="container grid grid-cols-1 gap-y-4 sm:gap-8 md:grid-cols-3 md:gap-x-6 xl:grid-cols-4 xl:gap-x-8"
     >
       <PlaylistFilters />
-      <PlaylistCardGrid />
+      <PlaylistGrid />
     </div>
   </section>
 </template>
