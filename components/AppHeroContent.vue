@@ -16,18 +16,8 @@
       tutorials.
     </p>
     <div class="mt-6 flex gap-x-2 sm:mt-8">
-      <a
-        href="#"
-        class="rounded-md bg-indigo-600 px-6 py-2 font-semibold text-indigo-50 hover:bg-indigo-700 sm:rounded-lg sm:px-8 sm:py-3 sm:text-lg"
-      >
-        Explore
-      </a>
-      <a
-        href="#features"
-        class="rounded-md bg-gray-100 px-6 py-2 font-semibold text-gray-900 hover:bg-gray-200 sm:rounded-lg sm:px-8 sm:py-3 sm:text-lg"
-      >
-        Learn More
-      </a>
+      <AppButton>Explore</AppButton>
+      <AppButton type="secondary" href="#features">Learn More</AppButton>
     </div>
   </div>
 </template>
