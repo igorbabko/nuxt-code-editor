@@ -3,7 +3,7 @@
     <div class="container flex flex-col gap-y-6 sm:gap-y-8">
       <div class="flex flex-col gap-10 lg:flex-row lg:gap-8">
         <AppFooterBranding />
-        <AppFooterLinks />
+        <AppFooterLists />
       </div>
       <AppFooterCopyright />
     </div>
