@@ -5,7 +5,7 @@ defineProps<{
 </script>
 
 <template>
-  <a href="#">
+  <NuxtLink to="/playlists/prettier">
     <article
       class="flex h-full flex-col rounded-md border border-gray-200 p-4 hover:border-indigo-600 sm:rounded-xl sm:p-6 dark:border-black dark:bg-gray-700 dark:hover:border-indigo-400"
     >
@@ -31,5 +31,5 @@ defineProps<{
         </ul>
       </footer>
     </article>
-  </a>
+  </NuxtLink>
 </template>
