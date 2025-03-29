@@ -39,40 +39,6 @@
         </a>
       </div>
     </div>
-    <ul class="flex flex-col gap-y-1">
-      <li>
-        <a
-          href="#"
-          class="flex w-full items-center justify-between gap-x-4 rounded-lg bg-indigo-50 p-3 text-indigo-700 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-700"
-        >
-          <span class="truncate text-sm font-medium sm:text-base">
-            1. Getting Started with Prettier
-          </span>
-          <span class="text-sm text-gray-500 sm:text-base">5:30</span>
-        </a>
-      </li>
-      <li>
-        <a
-          href="#"
-          class="flex w-full items-center justify-between gap-x-4 rounded-lg p-3 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
-        >
-          <span class="truncate text-sm font-medium sm:text-base">
-            2. Advanced GitLens Features
-          </span>
-          <span class="text-sm text-gray-500 sm:text-base">8:45</span>
-        </a>
-      </li>
-      <li>
-        <a
-          href="#"
-          class="flex w-full items-center justify-between gap-x-4 rounded-lg p-3 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
-        >
-          <span class="truncate text-sm font-medium sm:text-base">
-            3. Debugging with ESLint
-          </span>
-          <span class="text-sm text-gray-500 sm:text-base">6:15</span>
-        </a>
-      </li>
-    </ul>
+    <LessonList />
   </div>
 </template>
