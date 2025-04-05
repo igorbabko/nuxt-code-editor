@@ -1,10 +1,13 @@
 <script setup lang="ts">
-defineProps<{ label: string; type: string; id: string }>()
+defineOptions({ inheritAttrs: false })
+defineProps<{ id: string }>()
 </script>
 
 <template>
   <div class="flex flex-col gap-y-1">
-    <AppLabel :for="id">{{ label }}</AppLabel>
-    <AppInput :type="type" :id="id" />
+    <AppLabel v-if="$slots.default" :for="id">
+      <slot />
+    </AppLabel>
+    <AppInput :id="id" v-bind="$attrs" />
   </div>
 </template>
