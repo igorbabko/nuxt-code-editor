@@ -8,8 +8,9 @@
         <AppHeaderMobileNavItem link="/playlists">
           Library
         </AppHeaderMobileNavItem>
-        <AppHeaderMobileNavItem>Log In</AppHeaderMobileNavItem>
+        <AppHeaderMobileNavItem link="/login">Log In</AppHeaderMobileNavItem>
         <AppHeaderMobileNavItem
+          link="/register"
           link-classes="inline-block w-full rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-indigo-50 hover:bg-indigo-700"
         >
           Sign Up
