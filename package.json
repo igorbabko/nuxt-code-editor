@@ -20,6 +20,7 @@
   "devDependencies": {
     "@iconify-json/heroicons": "^1.2.2",
     "@nuxt/icon": "^1.10.3",
+    "@tailwindcss/typography": "^0.5.16",
     "prettier": "^3.5.2",
     "prettier-plugin-tailwindcss": "^0.6.11"
   }
