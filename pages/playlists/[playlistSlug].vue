@@ -6,7 +6,7 @@
     />
     <div class="container grid grid-cols-1 gap-y-8 lg:grid-cols-3 lg:gap-x-8">
       <PlaylistLessons />
-      <PlaylistLesson />
+      <NuxtPage />
     </div>
   </section>
 </template>
