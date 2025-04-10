@@ -4,9 +4,10 @@
       <AppHeaderNavItem class="mr-auto" link="/playlists">
         Library
       </AppHeaderNavItem>
-      <AppHeaderNavItem>Log In</AppHeaderNavItem>
+      <AppHeaderNavItem link="/login">Log In</AppHeaderNavItem>
       <AppHeaderNavItem
         link-classes="rounded-md bg-indigo-600 px-3 py-2 font-semibold text-indigo-50 hover:bg-indigo-700"
+        link="/register"
       >
         Sign Up
       </AppHeaderNavItem>
