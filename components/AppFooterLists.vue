@@ -2,15 +2,54 @@
 const lists = [
   {
     heading: 'Popular Playlists',
-    items: ['Prettier', 'GitLens', 'Live Share'],
+    items: [
+      {
+        label: 'Prettier',
+        link: '/playlists/live-share/lessons/getting-started-with-prettier',
+      },
+      {
+        label: 'GitLens',
+        link: '/playlists/gitlens/lessons/getting-started-with-prettier',
+      },
+      {
+        label: 'Live Share',
+        link: '/playlists/live-share/lessons/getting-started-with-prettier',
+      },
+    ],
   },
   {
     heading: 'Configurations',
-    items: ['Settings', 'Keyboard Shortcuts', 'Code Snippets'],
+    items: [
+      {
+        label: 'Settings',
+        link: '/playlists/live-share/lessons/getting-started-with-prettier',
+      },
+      {
+        label: 'Keyboard Shortcuts',
+        link: '/playlists/gitlens/lessons/getting-started-with-prettier',
+      },
+      {
+        label: 'Code Snippets',
+        link: '/playlists/live-share/lessons/getting-started-with-prettier',
+      },
+    ],
   },
   {
     heading: 'Social',
-    items: ['YouTube', 'Telegram', 'GitHub'],
+    items: [
+      {
+        label: 'YouTube',
+        link: '/playlists/live-share/lessons/getting-started-with-prettier',
+      },
+      {
+        label: 'Telegram',
+        link: '/playlists/gitlens/lessons/getting-started-with-prettier',
+      },
+      {
+        label: 'GitHub',
+        link: '/playlists/live-share/lessons/getting-started-with-prettier',
+      },
+    ],
   },
 ]
 </script>
