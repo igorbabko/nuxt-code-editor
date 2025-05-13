@@ -6,11 +6,7 @@ definePageMeta({ layout: 'auth' })
   <form class="flex flex-col gap-y-4 sm:gap-y-6">
     <AppFormField type="email" id="email">Email</AppFormField>
     <AppFormField type="password" id="password">Password</AppFormField>
-    <button
-      class="mt-2 rounded-md bg-indigo-600 px-6 py-2 text-sm font-semibold text-indigo-50 hover:bg-indigo-700 sm:mt-1 sm:rounded-lg sm:text-base"
-    >
-      Log In
-    </button>
+    <AppButton>Log In</AppButton>
   </form>
   <p class="mt-6 text-center text-sm text-gray-600 sm:mt-8 dark:text-gray-300">
     Don't have an account?
