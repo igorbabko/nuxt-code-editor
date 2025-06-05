@@ -23,7 +23,7 @@ const playlistSlug = props.playlist.title.toLowerCase().replaceAll(' ', '-')
       >
         {{ playlist.description }}
       </p>
-      <footer class="mt-auto">
+      <!-- <footer class="mt-auto">
         <ul class="flex flex-wrap gap-x-2">
           <li
             v-for="tag in playlist.tags"
@@ -33,7 +33,7 @@ const playlistSlug = props.playlist.title.toLowerCase().replaceAll(' ', '-')
             {{ tag }}
           </li>
         </ul>
-      </footer>
+      </footer> -->
     </article>
   </NuxtLink>
 </template>
