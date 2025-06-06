@@ -1,18 +1,6 @@
 <script setup lang="ts">
-import type { Playlist } from '~/stores/playlists'
-
 const { getLessonById } = useLessonsStore()
 const { playlists } = usePlaylistsStore()
-
-const getPlaylistLink = (playlist: Playlist) => {
-  const lesson = getLessonById(playlist.lessonIds[0])
-
-  if (!lesson) {
-    throw createError({ statusCode: 404, message: 'Lesson not found' })
-  }
-
-  return `/playlists/${slugify(playlist.title)}/lessons/${slugify(lesson.title)}`
-}
 
 const lists = [
   {
@@ -25,7 +13,7 @@ const lists = [
       )
       .map((playlist) => ({
         label: playlist.title,
-        link: getPlaylistLink(playlist),
+        link: getPlaylistLink(playlist, getLessonById(playlist.lessonIds[0])),
       })),
   },
   {
@@ -38,7 +26,7 @@ const lists = [
       )
       .map((playlist) => ({
         label: playlist.title,
-        link: getPlaylistLink(playlist),
+        link: getPlaylistLink(playlist, getLessonById(playlist.lessonIds[0])),
       })),
   },
   {

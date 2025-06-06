@@ -4,7 +4,7 @@ const props = defineProps<{
 }>()
 
 const playlistSlug = useRoute().params.playlistSlug
-const lessonSlug = props.lesson.title.toLowerCase().replaceAll(' ', '-')
+const lessonSlug = slugify(props.lesson.title)
 
 const linkClasses = computed(() => [
   'flex w-full items-center justify-between gap-x-4 rounded-lg p-3 dark:text-gray-300 dark:hover:bg-gray-700',

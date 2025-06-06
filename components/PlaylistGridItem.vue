@@ -1,25 +1,12 @@
 <script setup lang="ts">
-const props = defineProps<{
-  playlist: {
-    title: string
-    description: string
-    tagIds: number[]
-    lessonIds: number[]
-  }
-}>()
+const props = defineProps<{ playlist: Playlist }>()
 
 const tags = useTagsStore().getTagsByIds(props.playlist.tagIds)
 const lesson = useLessonsStore().getLessonById(props.playlist.lessonIds[0])
-
-if (!lesson) {
-  throw createError({ statusCode: 404, message: 'Lesson not found' })
-}
 </script>
 
 <template>
-  <NuxtLink
-    :to="`/playlists/${slugify(playlist.title)}/lessons/${slugify(lesson.title)}`"
-  >
+  <NuxtLink :to="getPlaylistLink(props.playlist, lesson)">
     <article
       class="flex h-full flex-col rounded-md border border-gray-200 p-4 hover:border-indigo-600 sm:rounded-xl sm:p-6 dark:border-black dark:bg-gray-700 dark:hover:border-indigo-400"
     >

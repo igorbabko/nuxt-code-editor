@@ -9,20 +9,12 @@ const featureIcons: Record<number, string> = {
 
 const features = usePlaylistsStore()
   .playlists.slice(0, 3)
-  .map((playlist) => {
-    const lesson = getLessonById(playlist.lessonIds[0])
-
-    if (!lesson) {
-      throw createError({ statusCode: 404, message: 'Lesson not found' })
-    }
-
-    return {
-      title: playlist.title,
-      description: playlist.description,
-      link: `/playlists/${slugify(playlist.title)}/lessons/${slugify(lesson.title)}`,
-      icon: featureIcons[playlist.id],
-    }
-  })
+  .map((playlist) => ({
+    title: playlist.title,
+    description: playlist.description,
+    link: getPlaylistLink(playlist, getLessonById(playlist.lessonIds[0])),
+    icon: featureIcons[playlist.id],
+  }))
 </script>
 
 <template>
