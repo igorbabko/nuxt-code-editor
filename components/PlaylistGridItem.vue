@@ -1,7 +1,9 @@
 <script setup lang="ts">
 const props = defineProps<{
-  playlist: { title: string; description: string; tags: string[] }
+  playlist: { title: string; description: string; tagIds: number[] }
 }>()
+
+const tags = useTagsStore().getTagsById(props.playlist.tagIds)
 
 const playlistSlug = props.playlist.title.toLowerCase().replaceAll(' ', '-')
 </script>
@@ -26,11 +28,11 @@ const playlistSlug = props.playlist.title.toLowerCase().replaceAll(' ', '-')
       <footer class="mt-auto">
         <ul class="flex flex-wrap gap-x-2">
           <li
-            v-for="tag in playlist.tags"
-            :key="tag"
+            v-for="tag in tags"
+            :key="tag.id"
             class="rounded-full bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-600 dark:bg-indigo-600 dark:text-indigo-50"
           >
-            {{ tag }}
+            {{ tag.name }}
           </li>
         </ul>
       </footer>
