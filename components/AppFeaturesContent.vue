@@ -1,27 +1,21 @@
 <script setup lang="ts">
-const features = [
-  {
-    icon: 'cog',
-    title: 'Settings',
-    description:
-      'Personalize your workspace to match your unique coding style and preferences effortlessly.',
-    link: '/playlists/prettier/lessons/getting-started-with-prettier',
-  },
-  {
-    icon: 'fire',
-    title: 'Keyboard Shortcuts',
-    description:
-      'Streamline your workflow with essential shortcuts that save you time and boost efficiency.',
-    link: '/playlists/prettier/lessons/getting-started-with-prettier',
-  },
-  {
-    icon: 'puzzle',
-    title: 'Extensions',
-    description:
-      'Expand your capabilities with powerful extensions tailored to enhance your coding experience.',
-    link: '/playlists/prettier/lessons/getting-started-with-prettier',
-  },
-]
+const { playlists } = usePlaylistsStore()
+const { getLessonById } = useLessonsStore()
+
+const features = ['cog', 'fire', 'puzzle'].map((icon, i) => {
+  const lesson = getLessonById(playlists[i].lessonIds[0])
+
+  if (!lesson) {
+    throw createError({ statusCode: 404, message: 'Lesson not found' })
+  }
+
+  return {
+    title: playlists[i].title,
+    description: playlists[i].description,
+    link: `/playlists/${slugify(playlists[i].title)}/lessons/${slugify(lesson.title)}`,
+    icon,
+  }
+})
 </script>
 
 <template>

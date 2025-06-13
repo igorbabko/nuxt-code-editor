@@ -1,53 +1,52 @@
 <script setup lang="ts">
+const { playlists } = usePlaylistsStore()
+const { getLessonById } = useLessonsStore()
+
 const lists = [
   {
     heading: 'Popular Playlists',
-    items: [
-      {
-        label: 'Prettier',
-        link: '/playlists/prettier/lessons/getting-started-with-prettier',
-      },
-      {
-        label: 'GitLens',
-        link: '/playlists/prettier/lessons/getting-started-with-prettier',
-      },
-      {
-        label: 'Live Share',
-        link: '/playlists/prettier/lessons/getting-started-with-prettier',
-      },
-    ],
+    items: playlists.slice(4, 7).map((playlist) => {
+      const lesson = getLessonById(playlist.lessonIds[0])
+
+      if (!lesson) {
+        throw createError({ statusCode: 404, message: 'Lesson not found' })
+      }
+
+      return {
+        label: playlist.title,
+        link: `/playlists/${slugify(playlist.title)}/lessons/${slugify(lesson.title)}`,
+      }
+    }),
   },
   {
     heading: 'Configurations',
-    items: [
-      {
-        label: 'Settings',
-        link: '/playlists/prettier/lessons/getting-started-with-prettier',
-      },
-      {
-        label: 'Keyboard Shortcuts',
-        link: '/playlists/prettier/lessons/getting-started-with-prettier',
-      },
-      {
-        label: 'Code Snippets',
-        link: '/playlists/prettier/lessons/getting-started-with-prettier',
-      },
-    ],
+    items: playlists.slice(0, 3).map((playlist) => {
+      const lesson = getLessonById(playlist.lessonIds[0])
+
+      if (!lesson) {
+        throw createError({ statusCode: 404, message: 'Lesson not found' })
+      }
+
+      return {
+        label: playlist.title,
+        link: `/playlists/${slugify(playlist.title)}/lessons/${slugify(lesson.title)}`,
+      }
+    }),
   },
   {
     heading: 'Social',
     items: [
       {
         label: 'YouTube',
-        link: '/playlists/prettier/lessons/getting-started-with-prettier',
+        link: 'https://youtube.com',
       },
       {
         label: 'Telegram',
-        link: '/playlists/prettier/lessons/getting-started-with-prettier',
+        link: 'https://telegram.org',
       },
       {
         label: 'GitHub',
-        link: '/playlists/prettier/lessons/getting-started-with-prettier',
+        link: 'https://github.com',
       },
     ],
   },

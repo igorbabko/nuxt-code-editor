@@ -12,6 +12,10 @@ const tags = useTagsStore().getTagsById(props.playlist.tagIds)
 
 const lesson = useLessonsStore().getLessonById(props.playlist.lessonIds[0])
 
+if (!lesson) {
+  throw createError({ statusCode: 404, message: 'Lesson not found' })
+}
+
 const playlistSlug = props.playlist.title.toLowerCase().replaceAll(' ', '-')
 const lessonSlug = lesson.title.toLowerCase().replaceAll(' ', '-')
 </script>
