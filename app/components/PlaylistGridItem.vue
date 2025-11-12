@@ -16,12 +16,12 @@ const lesson = useLessonsStore().getLessonById(props.playlist.lessonIds[0])
         </h3>
       </header>
       <p
-        class="mt-2 mb-6 text-sm text-gray-600 sm:text-base dark:text-gray-400"
+        class="mb-6 mt-2 text-sm text-gray-600 sm:text-base dark:text-gray-400"
       >
         {{ playlist.description }}
       </p>
       <footer class="mt-auto">
-        <ul class="flex flex-wrap gap-x-2">
+        <ul class="flex flex-wrap gap-x-2 gap-y-1">
           <li
             v-for="tag in tags"
             :key="tag.id"
