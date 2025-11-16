@@ -1,7 +1,5 @@
 <script setup lang="ts">
-const props = defineProps<{
-  lesson: { number: number; title: string; duration: string }
-}>()
+const props = defineProps<{ lesson: NumberedLesson }>()
 
 const playlistSlug = useRoute().params.playlistSlug
 const lessonSlug = props.lesson.title.toLowerCase().replaceAll(' ', '-')

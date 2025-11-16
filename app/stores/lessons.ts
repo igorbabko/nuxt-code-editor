@@ -5,6 +5,10 @@ export interface Lesson {
   duration: number
 }
 
+export interface NumberedLesson extends Lesson {
+  number: number
+}
+
 export const useLessonsStore = defineStore('lessons', () => {
   const lessons = ref<Lesson[]>([
     {
@@ -402,5 +406,9 @@ export const useLessonsStore = defineStore('lessons', () => {
     return lessons.value.find((lesson) => lesson.id === id)
   }
 
-  return { lessons, getLessonById }
+  function getLessonsByIds(ids: number[]) {
+    return lessons.value.filter((lesson) => ids.includes(lesson.id))
+  }
+
+  return { lessons, getLessonById, getLessonsByIds }
 })
