@@ -8,13 +8,13 @@ const playlist = playlistsStore.getPlaylistBySlug(
 )
 
 if (!playlist) {
-  throw createError({ statusCode: 404, message: 'Playlist not found' })
+  throw404('Playlist not found')
 }
 
 const lesson = lessonsStore.getLessonBySlug(route.params.lessonSlug as string)
 
 if (!lesson || !playlist.lessonIds.includes(lesson.id)) {
-  throw createError({ statusCode: 404, message: 'Lesson not found' })
+  throw404('Lesson not found')
 }
 </script>
 
