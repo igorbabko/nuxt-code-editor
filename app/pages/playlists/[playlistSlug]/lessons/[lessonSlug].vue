@@ -1,20 +1,16 @@
 <script setup lang="ts">
-const route = useRoute()
+const { params } = useRoute()
 const playlistsStore = usePlaylistsStore()
 const lessonsStore = useLessonsStore()
 
-const playlist = playlistsStore.getPlaylistBySlug(
-  route.params.playlistSlug as string,
-)
+const playlist = playlistsStore.getPlaylistBySlug(params.playlistSlug as string)
 
-if (!playlist) {
-  throw createError({ statusCode: 404, message: 'Playlist not found' })
-}
+if (!playlist) throw404('Playlist not found')
 
-const lesson = lessonsStore.getLessonBySlug(route.params.lessonSlug as string)
+const lesson = lessonsStore.getLessonBySlug(params.lessonSlug as string)
 
 if (!lesson || !playlist.lessonIds.includes(lesson.id)) {
-  throw createError({ statusCode: 404, message: 'Lesson not found' })
+  throw404('Lesson not found')
 }
 </script>
 
