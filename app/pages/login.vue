@@ -1,12 +1,71 @@
 <script setup lang="ts">
 definePageMeta({ layout: 'auth' })
+
+const email = ref('')
+const password = ref('')
+const error = ref('')
+const loading = ref(false)
+
+const route = useRoute()
+const { loggedIn, fetch: refreshSession } = useUserSession()
+
+// Redirect if already logged in
+if (loggedIn.value) {
+  navigateTo('/playlists')
+}
+
+async function handleLogin() {
+  error.value = ''
+
+  // Client-side validation
+  if (!email.value.trim() || !password.value) {
+    error.value = 'Email and password are required'
+    return
+  }
+
+  loading.value = true
+
+  try {
+    await $fetch('/api/auth/login', {
+      method: 'POST',
+      body: {
+        email: email.value.trim(),
+        password: password.value,
+      },
+    })
+
+    // Refresh the session on client-side (Nuxt 4 best practice)
+    await refreshSession()
+
+    // Redirect to original destination or playlists
+    const redirectTo = (route.query.redirect as string) || '/playlists'
+    await navigateTo(redirectTo)
+  } catch (e: any) {
+    error.value = e.data?.message || 'Login failed. Please try again.'
+  } finally {
+    loading.value = false
+  }
+}
 </script>
 
 <template>
-  <form class="flex flex-col gap-y-4 sm:gap-y-6">
-    <AppFormField type="email" id="email">Email</AppFormField>
-    <AppFormField type="password" id="password">Password</AppFormField>
-    <AppButton class="mt-2 sm:mt-1">Log In</AppButton>
+  <form @submit.prevent="handleLogin" class="flex flex-col gap-y-4 sm:gap-y-6">
+    <div
+      v-if="error"
+      class="rounded-lg bg-red-100 p-3 text-sm text-red-700 dark:bg-red-900/20 dark:text-red-400"
+    >
+      {{ error }}
+    </div>
+
+    <AppFormField v-model="email" type="email" id="email" required>
+      Email
+    </AppFormField>
+    <AppFormField v-model="password" type="password" id="password" required>
+      Password
+    </AppFormField>
+    <AppButton type="submit" :disabled="loading" class="mt-2 sm:mt-1">
+      {{ loading ? 'Signing in...' : 'Log In' }}
+    </AppButton>
   </form>
   <p class="mt-6 text-center text-sm text-gray-600 sm:mt-8 dark:text-gray-300">
     Don't have an account?
