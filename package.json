@@ -7,13 +7,17 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "db:generate": "drizzle-kit generate"
   },
   "dependencies": {
+    "@nuxthub/core": "^0.9.1",
     "@nuxtjs/google-fonts": "^3.2.0",
     "@pinia/nuxt": "^0.11.3",
     "@tailwindcss/vite": "^4.0.7",
+    "drizzle-orm": "^0.44.7",
     "nuxt": "^4.2.1",
+    "nuxt-auth-utils": "^0.5.25",
     "pinia": "^3.0.4",
     "tailwindcss": "^4.0.7",
     "vue": "latest",
@@ -23,7 +27,9 @@
     "@iconify-json/heroicons": "^1.2.2",
     "@nuxt/icon": "^2.1.0",
     "@tailwindcss/typography": "^0.5.16",
+    "drizzle-kit": "^0.31.7",
     "prettier": "^3.5.2",
-    "prettier-plugin-tailwindcss": "^0.6.11"
+    "prettier-plugin-tailwindcss": "^0.6.11",
+    "wrangler": "^4.51.0"
   }
 }
