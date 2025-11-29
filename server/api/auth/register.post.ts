@@ -1,8 +1,26 @@
 import { eq } from 'drizzle-orm'
 import { users } from '../../database/schema'
+import { validateEmail, validatePassword } from '~/utils/validation'
 
 export default defineEventHandler(async (event) => {
   const { email, password, name } = await readBody(event)
+
+  // Validate inputs
+  const emailError = validateEmail(email)
+  if (emailError) {
+    throw createError({
+      statusCode: 400,
+      message: emailError,
+    })
+  }
+
+  const passwordError = validatePassword(password)
+  if (passwordError) {
+    throw createError({
+      statusCode: 400,
+      message: passwordError,
+    })
+  }
 
   const db = useDrizzle()
 

@@ -17,6 +17,32 @@ if (loggedIn.value) {
 
 async function handleRegister() {
   error.value = ''
+
+  // Client-side validation
+  const nameError = validateName(name.value)
+  if (nameError) {
+    error.value = nameError
+    return
+  }
+
+  const emailError = validateEmail(email.value)
+  if (emailError) {
+    error.value = emailError
+    return
+  }
+
+  const passwordError = validatePassword(password.value)
+  if (passwordError) {
+    error.value = passwordError
+    return
+  }
+
+  const confirmationError = validatePasswordConfirmation(password.value, passwordConfirmation.value)
+  if (confirmationError) {
+    error.value = confirmationError
+    return
+  }
+
   loading.value = true
 
   try {
@@ -57,7 +83,7 @@ async function handleRegister() {
     <AppFormField v-model="email" type="email" id="email" required>
       Email
     </AppFormField>
-    <AppFormField v-model="password" type="password" id="password" required>
+    <AppFormField v-model="password" type="password" id="password" required minlength="8">
       Password
     </AppFormField>
     <AppFormField
@@ -65,6 +91,7 @@ async function handleRegister() {
       type="password"
       id="passwordConfirmation"
       required
+      minlength="8"
     >
       Password Confirmation
     </AppFormField>
