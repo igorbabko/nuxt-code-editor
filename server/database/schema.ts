@@ -20,3 +20,16 @@ export const userProgress = sqliteTable('user_progress', {
     .notNull()
     .$defaultFn(() => new Date()),
 })
+
+export const passwordResetTokens = sqliteTable('password_reset_tokens', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  userId: integer('user_id')
+    .notNull()
+    .references(() => users.id, { onDelete: 'cascade' }),
+  token: text('token').notNull().unique(),
+  expiresAt: integer('expires_at', { mode: 'timestamp' }).notNull(),
+  usedAt: integer('used_at', { mode: 'timestamp' }),
+  createdAt: integer('created_at', { mode: 'timestamp' })
+    .notNull()
+    .$defaultFn(() => new Date()),
+})
