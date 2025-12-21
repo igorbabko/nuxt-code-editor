@@ -1,6 +1,7 @@
 <script setup lang="ts">
 definePageMeta({ layout: 'auth' })
 
+const error = ref('')
 const email = ref('')
 const password = ref('')
 const passwordConfirmation = ref('')
@@ -12,6 +13,33 @@ if (loggedIn.value) {
 }
 
 async function handleRegister() {
+  const emailError = validateEmail(email.value)
+
+  if (emailError) {
+    error.value = emailError
+
+    return
+  }
+
+  const passwordError = validatePassword(password.value)
+
+  if (passwordError) {
+    error.value = passwordError
+
+    return
+  }
+
+  const passwordConfirmationError = validatePasswordConfirmation(
+    password.value,
+    passwordConfirmation.value,
+  )
+
+  if (passwordConfirmationError) {
+    error.value = passwordConfirmationError
+
+    return
+  }
+
   await $fetch('/api/register', {
     method: 'POST',
     body: {
@@ -31,6 +59,12 @@ async function handleRegister() {
     @submit.prevent="handleRegister"
     class="flex flex-col gap-y-4 sm:gap-y-6"
   >
+    <div
+      v-if="error"
+      class="rounded-lg bg-red-100 p-3 text-sm text-red-700 dark:bg-red-900/20 dark:text-red-400"
+    >
+      {{ error }}
+    </div>
     <AppFormField v-model.trim="email" type="email" id="email">
       Email
     </AppFormField>
