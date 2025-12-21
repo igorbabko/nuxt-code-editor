@@ -40,6 +40,7 @@ export default defineEventHandler(async (event) => {
       id: user.id,
       email: user.email,
       name: user.name,
+      emailVerified: user.emailVerified,
     },
     loggedInAt: Date.now(),
   })
@@ -49,6 +50,7 @@ export default defineEventHandler(async (event) => {
       id: user.id,
       email: user.email,
       name: user.name,
+      emailVerified: user.emailVerified,
     },
   }
 })
