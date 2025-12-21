@@ -57,7 +57,7 @@ async function handleLogin() {
       {{ error }}
     </div>
 
-    <AppFormField v-model="email" type="email" id="email" required>
+    <AppFormField v-model="email" type="email" id="email" required autofocus>
       Email
     </AppFormField>
     <AppFormField v-model="password" type="password" id="password" required>

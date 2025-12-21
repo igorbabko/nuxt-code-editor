@@ -91,7 +91,7 @@ async function handleRegister() {
       {{ error }}
     </div>
 
-    <AppFormField v-model="name" type="text" id="name" :error="nameError" required>
+    <AppFormField v-model="name" type="text" id="name" :error="nameError" required autofocus>
       Name
     </AppFormField>
     <AppFormField v-model="email" type="email" id="email" :error="emailError" required>
