@@ -6,21 +6,6 @@ const password = ref('')
 const error = ref('')
 const loading = ref(false)
 
-const emailError = ref('')
-const passwordError = ref('')
-
-watch(email, (value) => {
-  emailError.value = validateEmail(value) ?? ''
-})
-
-watch(password, (value) => {
-  passwordError.value = value ? '' : 'Password is required'
-})
-
-const hasErrors = computed(() =>
-  Boolean(emailError.value || passwordError.value)
-)
-
 const route = useRoute()
 const { loggedIn, fetch: refreshSession } = useUserSession()
 
@@ -32,11 +17,9 @@ if (loggedIn.value) {
 async function handleLogin() {
   error.value = ''
 
-  // Trigger validation for all fields
-  emailError.value = validateEmail(email.value) ?? ''
-  passwordError.value = password.value ? '' : 'Password is required'
-
-  if (hasErrors.value) {
+  // Client-side validation
+  if (!email.value.trim() || !password.value) {
+    error.value = 'Email and password are required'
     return
   }
 
@@ -74,13 +57,13 @@ async function handleLogin() {
       {{ error }}
     </div>
 
-    <AppFormField v-model="email" type="email" id="email" :error="emailError" required>
+    <AppFormField v-model="email" type="email" id="email" required>
       Email
     </AppFormField>
-    <AppFormField v-model="password" type="password" id="password" :error="passwordError" required>
+    <AppFormField v-model="password" type="password" id="password" required>
       Password
     </AppFormField>
-    <AppButton type="submit" :disabled="loading || hasErrors" class="mt-2 sm:mt-1">
+    <AppButton type="submit" :disabled="loading" class="mt-2 sm:mt-1">
       {{ loading ? 'Signing in...' : 'Log In' }}
     </AppButton>
   </form>
