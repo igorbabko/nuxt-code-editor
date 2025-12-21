@@ -8,6 +8,34 @@ const passwordConfirmation = ref('')
 const error = ref('')
 const loading = ref(false)
 
+const nameError = ref('')
+const emailError = ref('')
+const passwordError = ref('')
+const passwordConfirmationError = ref('')
+
+watch(name, (value) => {
+  nameError.value = validateName(value) ?? ''
+})
+
+watch(email, (value) => {
+  emailError.value = validateEmail(value) ?? ''
+})
+
+watch(password, (value) => {
+  passwordError.value = validatePassword(value) ?? ''
+  if (passwordConfirmation.value) {
+    passwordConfirmationError.value = validatePasswordConfirmation(value, passwordConfirmation.value) ?? ''
+  }
+})
+
+watch(passwordConfirmation, (value) => {
+  passwordConfirmationError.value = validatePasswordConfirmation(password.value, value) ?? ''
+})
+
+const hasErrors = computed(() =>
+  Boolean(nameError.value || emailError.value || passwordError.value || passwordConfirmationError.value)
+)
+
 const { loggedIn, fetch: refreshSession } = useUserSession()
 
 // Redirect if already logged in
@@ -18,28 +46,14 @@ if (loggedIn.value) {
 async function handleRegister() {
   error.value = ''
 
-  // Client-side validation
-  const nameError = validateName(name.value)
-  if (nameError) {
-    error.value = nameError
-    return
-  }
+  // Trigger validation for all fields
+  nameError.value = validateName(name.value) ?? ''
+  emailError.value = validateEmail(email.value) ?? ''
+  passwordError.value = validatePassword(password.value) ?? ''
+  passwordConfirmationError.value = validatePasswordConfirmation(password.value, passwordConfirmation.value) ?? ''
 
-  const emailError = validateEmail(email.value)
-  if (emailError) {
-    error.value = emailError
-    return
-  }
-
-  const passwordError = validatePassword(password.value)
-  if (passwordError) {
-    error.value = passwordError
-    return
-  }
-
-  const confirmationError = validatePasswordConfirmation(password.value, passwordConfirmation.value)
-  if (confirmationError) {
-    error.value = confirmationError
+  // Check if any field has an error
+  if (nameError.value || emailError.value || passwordError.value || passwordConfirmationError.value) {
     return
   }
 
@@ -77,25 +91,26 @@ async function handleRegister() {
       {{ error }}
     </div>
 
-    <AppFormField v-model="name" type="text" id="name" required>
+    <AppFormField v-model="name" type="text" id="name" :error="nameError" required>
       Name
     </AppFormField>
-    <AppFormField v-model="email" type="email" id="email" required>
+    <AppFormField v-model="email" type="email" id="email" :error="emailError" required>
       Email
     </AppFormField>
-    <AppFormField v-model="password" type="password" id="password" required minlength="8">
+    <AppFormField v-model="password" type="password" id="password" :error="passwordError" required minlength="8">
       Password
     </AppFormField>
     <AppFormField
       v-model="passwordConfirmation"
       type="password"
       id="passwordConfirmation"
+      :error="passwordConfirmationError"
       required
       minlength="8"
     >
       Password Confirmation
     </AppFormField>
-    <AppButton type="submit" :disabled="loading" class="mt-2 sm:mt-1">
+    <AppButton type="submit" :disabled="loading || hasErrors" class="mt-2 sm:mt-1">
       {{ loading ? 'Creating account...' : 'Sign Up' }}
     </AppButton>
   </form>
