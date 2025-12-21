@@ -1,3 +1,7 @@
+<script lang="ts" setup>
+const { loggedIn } = useUserSession()
+</script>
+
 <template>
   <div class="flex sm:hidden">
     <nav
@@ -10,14 +14,25 @@
             Library
           </AppHeaderMobileNavLink>
         </li>
-        <li>
-          <AppHeaderMobileNavLink to="/login">Log In</AppHeaderMobileNavLink>
-        </li>
-        <li>
-          <AppButton lg to="/register" class="inline-block w-full text-center">
-            Sign Up
-          </AppButton>
-        </li>
+        <template v-if="loggedIn">
+          <li>
+            <AppHeaderMobileNavLink to="#">Logout</AppHeaderMobileNavLink>
+          </li>
+        </template>
+        <template v-else>
+          <li>
+            <AppHeaderMobileNavLink to="/login">Log In</AppHeaderMobileNavLink>
+          </li>
+          <li>
+            <AppButton
+              lg
+              to="/register"
+              class="inline-block w-full text-center"
+            >
+              Sign Up
+            </AppButton>
+          </li>
+        </template>
       </ul>
     </nav>
     <AppHeaderMobileNavButton
