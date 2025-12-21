@@ -67,7 +67,15 @@ async function handleLogin() {
       {{ loading ? 'Signing in...' : 'Log In' }}
     </AppButton>
   </form>
-  <p class="mt-6 text-center text-sm text-gray-600 sm:mt-8 dark:text-gray-300">
+  <p class="mt-4 text-center text-sm text-gray-600 dark:text-gray-300">
+    <NuxtLink
+      to="/forgot-password"
+      class="font-medium text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
+    >
+      Forgot your password?
+    </NuxtLink>
+  </p>
+  <p class="mt-4 text-center text-sm text-gray-600 dark:text-gray-300">
     Don't have an account?
     <NuxtLink
       to="/register"
