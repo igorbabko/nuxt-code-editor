@@ -7,11 +7,11 @@ const error = ref('')
 const loading = ref(false)
 
 const route = useRoute()
-const { loggedIn, fetch: refreshSession } = useUserSession()
+const { loggedIn, user, fetch: refreshSession } = useUserSession()
 
 // Redirect if already logged in
 if (loggedIn.value) {
-  navigateTo('/playlists')
+  navigateTo(user.value?.emailVerified ? '/playlists' : '/verify-email')
 }
 
 async function handleLogin() {
@@ -37,9 +37,14 @@ async function handleLogin() {
     // Refresh the session on client-side (Nuxt 4 best practice)
     await refreshSession()
 
-    // Redirect to original destination or playlists
-    const redirectTo = (route.query.redirect as string) || '/playlists'
-    await navigateTo(redirectTo)
+    // Redirect based on verification status
+    const { user: freshUser } = useUserSession()
+    if (!freshUser.value?.emailVerified) {
+      await navigateTo('/verify-email')
+    } else {
+      const redirectTo = (route.query.redirect as string) || '/playlists'
+      await navigateTo(redirectTo)
+    }
   } catch (e: any) {
     error.value = e.data?.message || 'Login failed. Please try again.'
   } finally {

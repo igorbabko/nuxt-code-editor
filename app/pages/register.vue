@@ -36,11 +36,11 @@ const hasErrors = computed(() =>
   Boolean(nameError.value || emailError.value || passwordError.value || passwordConfirmationError.value)
 )
 
-const { loggedIn, fetch: refreshSession } = useUserSession()
+const { loggedIn, user, fetch: refreshSession } = useUserSession()
 
 // Redirect if already logged in
 if (loggedIn.value) {
-  navigateTo('/playlists')
+  navigateTo(user.value?.emailVerified ? '/playlists' : '/verify-email')
 }
 
 async function handleRegister() {
@@ -72,8 +72,8 @@ async function handleRegister() {
     // Refresh the session on client-side (Nuxt 4 best practice)
     await refreshSession()
 
-    // Redirect to playlists after successful registration
-    await navigateTo('/playlists')
+    // Redirect to verify email page after successful registration
+    await navigateTo('/verify-email')
   } catch (e: any) {
     error.value = e.data?.message || 'Registration failed. Please try again.'
   } finally {
