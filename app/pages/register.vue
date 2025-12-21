@@ -1,10 +1,37 @@
 <script setup lang="ts">
 definePageMeta({ layout: 'auth' })
 
-const error = ref('')
+const emailError = ref('')
+const passwordError = ref('')
+const passwordConfirmationError = ref('')
+
 const email = ref('')
 const password = ref('')
 const passwordConfirmation = ref('')
+
+watch(email, (value) => {
+  emailError.value = validateEmail(value) ?? ''
+})
+
+watch(password, (value) => {
+  passwordError.value = validatePassword(value) ?? ''
+})
+
+watch(passwordConfirmation, (value) => {
+  passwordConfirmationError.value =
+    validatePasswordConfirmation(password.value, value) ?? ''
+})
+
+const isFormValid = computed(() => {
+  const hasErrors = Boolean(
+    emailError.value || passwordError.value || passwordConfirmationError.value,
+  )
+
+  const allFieldsFilled =
+    email.value && password.value && passwordConfirmation.value
+
+  return !hasErrors && allFieldsFilled
+})
 
 const { loggedIn, fetch: fetchUserSession } = useUserSession()
 
@@ -13,33 +40,6 @@ if (loggedIn.value) {
 }
 
 async function handleRegister() {
-  const emailError = validateEmail(email.value)
-
-  if (emailError) {
-    error.value = emailError
-
-    return
-  }
-
-  const passwordError = validatePassword(password.value)
-
-  if (passwordError) {
-    error.value = passwordError
-
-    return
-  }
-
-  const passwordConfirmationError = validatePasswordConfirmation(
-    password.value,
-    passwordConfirmation.value,
-  )
-
-  if (passwordConfirmationError) {
-    error.value = passwordConfirmationError
-
-    return
-  }
-
   await $fetch('/api/register', {
     method: 'POST',
     body: {
@@ -59,26 +59,31 @@ async function handleRegister() {
     @submit.prevent="handleRegister"
     class="flex flex-col gap-y-4 sm:gap-y-6"
   >
-    <div
-      v-if="error"
-      class="rounded-lg bg-red-100 p-3 text-sm text-red-700 dark:bg-red-900/20 dark:text-red-400"
+    <AppFormField
+      v-model.trim="email"
+      type="email"
+      id="email"
+      :error="emailError"
     >
-      {{ error }}
-    </div>
-    <AppFormField v-model.trim="email" type="email" id="email">
       Email
     </AppFormField>
-    <AppFormField v-model="password" type="password" id="password">
+    <AppFormField
+      v-model="password"
+      type="password"
+      id="password"
+      :error="passwordError"
+    >
       Password
     </AppFormField>
     <AppFormField
       v-model="passwordConfirmation"
       type="password"
       id="passwordConfirmation"
+      :error="passwordConfirmationError"
     >
       Password Confirmation
     </AppFormField>
-    <AppButton class="mt-2 sm:mt-1">Sign Up</AppButton>
+    <AppButton class="mt-2 sm:mt-1" :disabled="!isFormValid">Sign Up</AppButton>
   </form>
   <p class="mt-6 text-center text-sm text-gray-600 sm:mt-8 dark:text-gray-300">
     Already have an account?
