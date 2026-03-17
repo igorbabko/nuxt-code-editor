@@ -46,10 +46,3 @@ export const playlistsToTags = sqliteTable('playlists_to_tags', {
 }, (t) => ({
   pk: primaryKey({ columns: [t.playlistId, t.tagId] }),
 }))
-
-export const playlistsToTagsRelations = relations(playlistsToTags, ({ one }) => ({
-  tag: one(tags, {
-    fields: [playlistsToTags.tagId],
-    references: [tags.id],
-  }),
-}))
