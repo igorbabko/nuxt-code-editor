@@ -1,5 +1,13 @@
 <script setup lang="ts">
-const playlist = usePlaylistsStore().getPlaylistBySlug(
+const lessonsStore = useLessonsStore()
+const playlistsStore = usePlaylistsStore()
+
+await Promise.all([
+  callOnce(lessonsStore.fetch),
+  callOnce(playlistsStore.fetch),
+])
+
+const playlist = playlistsStore.getPlaylistBySlug(
   useRoute().params.playlistSlug as string,
 )
 

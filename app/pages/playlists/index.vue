@@ -1,3 +1,15 @@
+<script setup lang="ts">
+const tagsStore = useTagsStore()
+const lessonsStore = useLessonsStore()
+const playlistsStore = usePlaylistsStore()
+
+await Promise.all([
+  callOnce(tagsStore.fetch),
+  callOnce(lessonsStore.fetch),
+  callOnce(playlistsStore.fetch),
+])
+</script>
+
 <template>
   <section class="flex flex-col gap-y-8 pb-12 pt-24 sm:py-16 md:gap-y-12">
     <AppSectionHeader

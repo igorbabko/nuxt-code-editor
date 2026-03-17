@@ -1,7 +1,12 @@
 <script lang="ts" setup>
 const route = useRoute()
-const playlistsStore = usePlaylistsStore()
 const lessonsStore = useLessonsStore()
+const playlistsStore = usePlaylistsStore()
+
+await Promise.all([
+  callOnce(lessonsStore.fetch),
+  callOnce(playlistsStore.fetch),
+])
 
 const playlist = playlistsStore.getPlaylistBySlug(
   route.params.playlistSlug as string,
