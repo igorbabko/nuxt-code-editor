@@ -8,6 +8,20 @@
       "when": 1764238574365,
       "tag": "0000_blushing_epoch",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1773689733344,
+      "tag": "0001_ambiguous_siren",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1773759547980,
+      "tag": "0002_unknown_quentin_quire",
+      "breakpoints": true
     }
   ]
 }
