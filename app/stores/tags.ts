@@ -1,44 +1,21 @@
-interface Tag {
+export interface Tag {
   id: number
   name: string
 }
 
 export const useTagsStore = defineStore('tags', () => {
-  const tags = ref<Tag[]>([
-    { id: 1, name: 'Utility' },
-    { id: 2, name: 'Formatting' },
-    { id: 3, name: 'Development' },
-    { id: 4, name: 'Collaboration' },
-    { id: 5, name: 'Git' },
-    { id: 6, name: 'Version Control' },
-    { id: 7, name: 'Debugging' },
-    { id: 8, name: 'Testing' },
-    { id: 9, name: 'Web Development' },
-    { id: 10, name: 'Python' },
-    { id: 11, name: 'React' },
-    { id: 12, name: 'Remote' },
-    { id: 13, name: 'Productivity' },
-    { id: 14, name: 'Settings' },
-    { id: 15, name: 'Keyboard' },
-    { id: 16, name: 'Extensions' },
-  ])
-
+  const tags = ref<Tag[]>([])
   const selectedTagIds = ref<number[]>([])
 
-  function getTagsById(ids: number[]) {
-    return tags.value.filter((tag) => ids.includes(tag.id))
-  }
+  const fetch = () =>
+    tags.value.length ? null : $fetch<Tag[]>('/api/tags').then((r) => (tags.value = r))
 
-  function toggleTag(tagId: number) {
-    selectedTagIds.value = selectedTagIds.value.includes(tagId)
-      ? selectedTagIds.value.filter((id) => id !== tagId)
-      : [...selectedTagIds.value, tagId]
-  }
+  const getTagsById = (ids: number[]) => tags.value.filter((t) => ids.includes(t.id))
 
-  return {
-    tags,
-    selectedTagIds,
-    getTagsById,
-    toggleTag
-  }
+  const toggleTag = (id: number) =>
+    (selectedTagIds.value = selectedTagIds.value.includes(id)
+      ? selectedTagIds.value.filter((i) => i !== id)
+      : [...selectedTagIds.value, id])
+
+  return { tags, selectedTagIds, fetch, getTagsById, toggleTag }
 })
