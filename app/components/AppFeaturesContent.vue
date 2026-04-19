@@ -1,6 +1,10 @@
 <script setup lang="ts">
-const { playlists } = usePlaylistsStore()
+const playlistsStore = usePlaylistsStore()
 const { getLessonById } = useLessonsStore()
+
+await callOnce(playlistsStore.fetch)
+
+console.log(playlistsStore.playlists)
 
 const features = ['cog', 'fire', 'puzzle'].map((icon, i) => {
   const lesson = getLessonById(playlists[i].lessonIds[0])

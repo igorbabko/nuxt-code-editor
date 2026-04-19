@@ -1,13 +1,10 @@
+import { playlists } from '../database/schema'
+
 export default defineEventHandler(async () => {
   const db = useDrizzle()
 
-  const results = await db.query.playlists.findMany({
+  return await db.select().from(playlists).all({
     with: {
-      playlistsToTags: {
-        columns: {
-          tagId: true,
-        },
-      },
       lessons: {
         columns: {
           id: true,
@@ -18,12 +15,32 @@ export default defineEventHandler(async () => {
     },
   })
 
-  return results.map((playlist) => ({
+  // return await db.select().from(playlists).all()
+
+
+  // const results = await db.query.playlists.findMany({
+  //   with: {
+  //     playlistsToTags: {
+  //       columns: {
+  //         tagId: true,
+  //       },
+  //     },
+  //     lessons: {
+  //       columns: {
+  //         id: true,
+  //         order: true,
+  //       },
+  //       orderBy: (lessons, { asc }) => [asc(lessons.order)],
+  //     },
+  //   },
+  // })
+
+  return results.map((playlist: Playlist) => ({
     id: playlist.id,
     title: playlist.title,
     slug: playlist.slug,
     description: playlist.description,
-    tagIds: playlist.playlistsToTags.map((pt) => pt.tagId),
-    lessonIds: playlist.lessons.map((l) => l.id),
+    // tagIds: playlist.playlistsToTags.map((pt) => pt.tagId),
+    // lessonIds: playlist.lessons.map((l) => l.id),
   }))
 })

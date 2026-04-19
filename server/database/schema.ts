@@ -1,5 +1,5 @@
 import { integer, sqliteTable, text, primaryKey } from 'drizzle-orm/sqlite-core'
-import { relations } from 'drizzle-orm'
+import { defineRelations } from 'drizzle-orm';
 
 export const users = sqliteTable('users', {
   id: integer('id').primaryKey({ autoIncrement: true }),
@@ -31,18 +31,28 @@ export const playlists = sqliteTable('playlists', {
   description: text('description').notNull(),
 })
 
-export const playlistsRelations = relations(playlists, ({ many }) => ({
-  playlistsToTags: many(playlistsToTags),
-  lessons: many(lessons),
+const relations = defineRelations({ playlists, lessons }, (r) => ({
+	playlists: {
+		lessons: r.many.lessons({
+			from: r.lessons.playlistId,
+			to: r.playlists.id,
+		}),
+	}
 }))
 
-export const playlistsToTags = sqliteTable('playlists_to_tags', {
-  playlistId: integer('playlist_id')
-    .notNull()
-    .references(() => playlists.id),
-  tagId: integer('tag_id')
-    .notNull()
-    .references(() => tags.id),
-}, (t) => ({
-  pk: primaryKey({ columns: [t.playlistId, t.tagId] }),
-}))
+
+// export const playlistsRelations = relations(playlists, ({ many }) => ({
+//   playlistsToTags: many(playlistsToTags),
+//   lessons: many(lessons),
+// }))
+
+// export const playlistsToTags = sqliteTable('playlists_to_tags', {
+//   playlistId: integer('playlist_id')
+//     .notNull()
+//     .references(() => playlists.id),
+//   tagId: integer('tag_id')
+//     .notNull()
+//     .references(() => tags.id),
+// }, (t) => ({
+//   pk: primaryKey({ columns: [t.playlistId, t.tagId] }),
+// }))
